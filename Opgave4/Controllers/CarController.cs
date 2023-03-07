@@ -4,8 +4,10 @@ using Opgave4.Repository;
 
 namespace Opgave4.Controllers
 {
+    
+    [Route("api/[controller]")]
+    //URL:api/cars
     [ApiController]
-    [Route("[controller]")]
     public class CarController : ControllerBase
     {
         private CarRepository _repository;
@@ -45,7 +47,7 @@ namespace Opgave4.Controllers
         {
             try
             {
-                Car CreateCar = _repository.Add(newCar);
+                Car? CreateCar = _repository.Add(newCar);
                 return Created($"api/pokemons/{CreateCar.Id}", CreateCar);
             }
             catch (ArgumentNullException x)

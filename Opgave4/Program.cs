@@ -1,19 +1,34 @@
 using Opgave4.Repository;
 
-var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+internal class Program
+{
+    private static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+        // Add services to the container.
 
-builder.Services.AddSingleton<CarRepository>();
+        builder.Services.AddControllers();
 
-var app = builder.Build();
+        builder.Services.AddSwaggerGen();
 
-// Configure the HTTP request pipeline.
+        builder.Services.AddEndpointsApiExplorer();
 
-app.UseAuthorization();
+        builder.Services.AddSingleton<CarRepository>(new CarRepository());
 
-app.MapControllers();
+        var app = builder.Build();
 
-app.Run();
+
+        app.UseSwagger();
+           app.UseSwaggerUI();
+        // Configure the HTTP request pipeline.
+
+
+        app.UseAuthorization();
+
+        app.MapControllers();
+
+        app.Run();
+    }
+}
